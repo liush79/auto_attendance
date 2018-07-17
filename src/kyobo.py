@@ -36,6 +36,7 @@ def kyobo():
             except:
                 print ('INFO: You already to attend this site.')
             print ('INFO: Logout')
+            time.sleep(1)
             logout = d.find_element_by_xpath('//li[@class="button"]/a[@href="javascript:logout();"]')
             logout.click()
             time.sleep(1)
