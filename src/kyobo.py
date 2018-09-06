@@ -32,11 +32,15 @@ def kyobo():
                 print ('INFO: Click attendance')
                 btn_stamp = div_stamp.find_element_by_tag_name('a')
                 btn_stamp.click()
+                time.sleep(2)
                 d.switch_to.alert.accept()
+                time.sleep(2)
+                # Refresh this page - It has 'To display this page, Firefox must send......' problem.
+                d.get(KYOBO['attendance_path'])
             except:
                 print ('INFO: You already to attend this site.')
+            time.sleep(3)
             print ('INFO: Logout')
-            time.sleep(1)
             logout = d.find_element_by_xpath('//li[@class="button"]/a[@href="javascript:logout();"]')
             logout.click()
             time.sleep(1)
