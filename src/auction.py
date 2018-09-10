@@ -69,7 +69,6 @@ def auction():
         clog.error('TRACEBACK: %s' % traceback.format_exc())
     finally:
         d.close()
-        d.quit()
 
 
 if __name__ == '__main__':
