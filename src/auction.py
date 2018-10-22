@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from clog import Clog
 from selenium import webdriver
 from id_const import AUCTION as TARGET
@@ -21,7 +22,7 @@ def auction():
             clog.info('Try to login: \'%s\'' % idpw[0])
             id = d.find_element_by_id("id")
             id.click()
-            id.send_keys(idpw[0])
+            id.send_keys(idpw[0].decode('utf8'))
             pw = d.find_element_by_id("password")
             pw.click()
             pw.send_keys(idpw[1])
@@ -39,6 +40,7 @@ def auction():
 
             next_btn = d.find_element_by_class_name('swiper-button-next')
             try:
+                cnt = 0
                 for _ in range(0, 20):
                     # Probably, the site prohibits to click if the item invisible.
                     # We should click only visible items.
@@ -46,9 +48,14 @@ def auction():
                     for sp in sp_list:
                         btn_point = sp.find_element_by_class_name('btn_point')
                         if 'after' not in btn_point.get_attribute('class'):
+                            cnt = 0
                             sp.click()
                             clog.info('Get the points.')
                             break
+                    cnt += 1
+                    if cnt >= 4:
+                        clog.info('Stopped to gathering.')
+                        break
                     next_btn.click()
                     time.sleep(random.randrange(5, 30) / 10.0)
             except Exception, e:
