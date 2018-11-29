@@ -22,7 +22,8 @@ def auction():
             clog.info('Try to login: \'%s\'' % idpw[0])
             id = d.find_element_by_id("id")
             id.click()
-            id.send_keys(idpw[0].decode('utf8'))
+            # id.send_keys(idpw[0].decode('utf8'))  # python 2.x, python3 default str is unicode
+            id.send_keys(idpw[0])
             pw = d.find_element_by_id("password")
             pw.click()
             pw.send_keys(idpw[1])
@@ -58,7 +59,7 @@ def auction():
                         break
                     next_btn.click()
                     time.sleep(random.randrange(5, 30) / 10.0)
-            except Exception, e:
+            except Exception as e:
                 clog.info('Probably we got the all points !')
                 pass
             time.sleep(1)
@@ -71,7 +72,7 @@ def auction():
             lis[0].click()
             time.sleep(1)
         clog.info('INFO: Finish !')
-    except Exception, e:
+    except Exception as e:
         clog.error('Exception: %s' % str(e))
         clog.error('TRACEBACK: %s' % traceback.format_exc())
     finally:

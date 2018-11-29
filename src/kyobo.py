@@ -46,7 +46,7 @@ def kyobo():
             logout.click()
             time.sleep(1)
         print ('INFO: Finish !')
-    except Exception, e:
+    except Exception as e:
         print ('ERROR: ', str(e))
         print ('TRACEBACK: ', traceback.format_exc())
     finally:
