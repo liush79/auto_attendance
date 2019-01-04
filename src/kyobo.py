@@ -28,17 +28,14 @@ def kyobo():
             time.sleep(2)
             print ('INFO: Move attendance page')
             d.get(KYOBO['attendance_path'])
-            div_stamp = d.find_element_by_class_name('daily_stamp_info')
             try:
-                print ('INFO: Click attendance')
-                btn_stamp = div_stamp.find_element_by_tag_name('a')
-                btn_stamp.click()
-                time.sleep(2)
+                div_check = d.find_element_by_class_name('check')
+                div_check.click()
+                time.sleep(1)
                 d.switch_to.alert.accept()
                 time.sleep(2)
-                # Refresh this page - It has 'To display this page, Firefox must send......' problem.
                 d.get(KYOBO['attendance_path'])
-            except:
+            except Exception as e:
                 print ('INFO: You already to attend this site.')
             time.sleep(3)
             print ('INFO: Logout')
