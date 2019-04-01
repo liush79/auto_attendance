@@ -10,11 +10,14 @@ import traceback
 def gmarket():
     print ('INFO: Load Firefox')
     d = webdriver.Firefox()
-    d.implicitly_wait(10)
     try:
         for idpw in GMARKET['IDs']:
             print ('INFO: Move to login page')
-            d.get(GMARKET['login_path'])
+            try:
+                d.set_page_load_timeout(10)
+                d.get(GMARKET['login_path'])
+            except:
+                d.set_page_load_timeout(30)
             print ('INFO: Try to login: \'%s\'' % idpw[0])
             id = d.find_element_by_id("id")
             id.click()
@@ -45,7 +48,11 @@ def gmarket():
             d.get(GMARKET['attendance_path'])
             time.sleep(3)
             logout = d.find_element_by_class_name('logout')
-            logout.click()
+            try:
+                d.set_page_load_timeout(5)
+                logout.click()
+            except:
+                pass
             time.sleep(1)
         print ('INFO: Finish !')
     except Exception as e:
