@@ -35,7 +35,11 @@ def auction():
             d.get(TARGET['attendance_path'])
 
             # find iframe
-            div_slide = d.find_element_by_class_name('slideWrap')
+            # --------------------------------------------------------------------
+            # by class name don't find double underscore class name... why ?
+            # div_slide = div_container.find_element_by_class_name('content_slot content_slot__point_save')
+            # --------------------------------------------------------------------
+            div_slide = d.find_element_by_xpath('//div[@class="content_slot content_slot__point_save"]')
             iframe = div_slide.find_element_by_tag_name('iframe')
             d.switch_to.frame(iframe)
 
