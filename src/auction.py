@@ -2,6 +2,7 @@
 
 from clog import Clog
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from id_const import AUCTION as TARGET
 
 import random
@@ -39,37 +40,55 @@ def auction():
             # by class name don't find double underscore class name... why ?
             # div_slide = div_container.find_element_by_class_name('content_slot content_slot__point_save')
             # --------------------------------------------------------------------
-            div_slide = d.find_element_by_xpath('//div[@class="content_slot content_slot__point_save"]')
-            iframe = div_slide.find_element_by_tag_name('iframe')
+            # =============================== 2020-01-02 출석이 바뀜..===============================
+            # div_slide = d.find_element_by_xpath('//div[@class="content_slot content_slot__point_save"]')
+            # iframe = div_slide.find_element_by_tag_name('iframe')
+            # d.switch_to.frame(iframe)
+            #
+            # next_btn = d.find_element_by_class_name('swiper-button-next')
+            # try:
+            #     cnt = 0
+            #     for _ in range(0, 20):
+            #         # Probably, the site prohibits to click if the item invisible.
+            #         # We should click only visible items.
+            #         sp_list = d.find_elements_by_class_name('swiper-slide-visible')
+            #         for sp in sp_list:
+            #             btn_point = sp.find_element_by_class_name('btn_point')
+            #             if 'after' not in btn_point.get_attribute('class'):
+            #                 cnt = 0
+            #                 sp.click()
+            #                 clog.info('Get the points.')
+            #                 break
+            #         cnt += 1
+            #         if cnt >= 4:
+            #             clog.info('Stopped to gathering.')
+            #             break
+            #         next_btn.click()
+            #         time.sleep(random.randrange(5, 30) / 10.0)
+            # except Exception as e:
+            #     clog.info('Probably we got the all points !')
+            #     pass
+            # ===============================
+            content_slot = d.find_element_by_id('contentSlot01')
+            iframe = content_slot.find_element_by_tag_name('iframe')
             d.switch_to.frame(iframe)
-
-            next_btn = d.find_element_by_class_name('swiper-button-next')
             try:
-                cnt = 0
-                for _ in range(0, 20):
-                    # Probably, the site prohibits to click if the item invisible.
-                    # We should click only visible items.
-                    sp_list = d.find_elements_by_class_name('swiper-slide-visible')
-                    for sp in sp_list:
-                        btn_point = sp.find_element_by_class_name('btn_point')
-                        if 'after' not in btn_point.get_attribute('class'):
-                            cnt = 0
-                            sp.click()
-                            clog.info('Get the points.')
-                            break
-                    cnt += 1
-                    if cnt >= 4:
-                        clog.info('Stopped to gathering.')
-                        break
-                    next_btn.click()
-                    time.sleep(random.randrange(5, 30) / 10.0)
+                clog.info('Input answer')
+                txt_answer = d.find_element_by_id('txtAnswer')
+                time.sleep(random.randrange(2, 15))
+                txt_answer.send_keys('0')
+                time.sleep(0.5)
+                submit_button = d.find_element_by_xpath('//button[@onclick="doApply(); return false;"]')
+                submit_button.click()
             except Exception as e:
-                clog.info('Probably we got the all points !')
+                clog.info('Probably you already get the points !')
                 pass
             time.sleep(1)
             # switch original frame
             d.switch_to.default_content()
 
+            clog.info('Go to home page.')
+            d.get('http://www.auction.co.kr/')
             clog.info('Try Logout')
             usermenu = d.find_element_by_class_name('usermenu')
             lis = usermenu.find_elements_by_tag_name('li')

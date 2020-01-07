@@ -13,7 +13,8 @@ AUCTION = {
     'name': 'Auction',
     'login_path': 'https://memberssl.auction.co.kr/Authenticate/?'
                   'url=http%3a%2f%2fwww.auction.co.kr%2f%3fredirect%3d1&return_value=0',
-    'attendance_path': 'http://promotion.auction.co.kr/promotion/MD/eventview.aspx?txtMD=05F804C1E8',
+    # 'attendance_path': 'http://promotion.auction.co.kr/promotion/MD/eventview.aspx?txtMD=05F804C1E8',
+    'attendance_path': 'http://promotion.auction.co.kr/promotion/MD/eventview.aspx?txtMD=44248ECF03',
     'IDs': [
         ['Id1', 'Password1'],
         ['Id2', 'Password2'],

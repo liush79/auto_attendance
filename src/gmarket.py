@@ -26,7 +26,7 @@ def gmarket():
             pw.click()
             pw.send_keys(idpw[1])
             div_btn = d.find_element_by_class_name('btn-login')
-            btn = div_btn.find_element_by_tag_name('input')
+            btn = div_btn.find_element_by_tag_name('span')
             btn.click()
             print ('INFO: Wait to login')
             time.sleep(2)
