@@ -45,9 +45,9 @@ def gmarket():
                 print ('INFO: You already to attend this site.')
             print ('INFO: Logout')
 
-            d.get(GMARKET['attendance_path'])
-            time.sleep(3)
-            logout = d.find_element_by_class_name('logout')
+            d.get('http://www.gmarket.co.kr/')
+            time.sleep(1)
+            logout = d.find_element_by_xpath('//a[@href="https://signinssl.gmarket.co.kr/logout/logoutproc"]')
             try:
                 d.set_page_load_timeout(5)
                 logout.click()
