@@ -73,10 +73,16 @@ def auction():
             iframe = content_slot.find_element_by_tag_name('iframe')
             d.switch_to.frame(iframe)
             try:
-                clog.info('Input answer')
+                goods = d.find_element_by_class_name('goods_price')
+                price = goods.find_element_by_tag_name('dd')
+                clog.info(price.text)
+                last_price = int(price.text[:-1].replace(',', '')) - 37000
+                if last_price <= 0:
+                    last_price = 0
+                clog.info('최종 가격: ' + str(last_price))
                 txt_answer = d.find_element_by_id('txtAnswer')
                 time.sleep(random.randrange(2, 15))
-                txt_answer.send_keys('0')
+                txt_answer.send_keys(str(last_price))
                 time.sleep(0.5)
                 submit_button = d.find_element_by_xpath('//button[@onclick="doApply(); return false;"]')
                 submit_button.click()
